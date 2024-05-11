@@ -12,7 +12,7 @@ export default function Dashboard({ auth }) {
     const [registeringPatient, setRegisteringPatient] = useState(false);
     const { data, setData, post, processing, reset, errors } = useForm({
         name: "",
-        age: 0,
+        age: null,
     });
 
     const closeModal = () => {
@@ -26,7 +26,6 @@ export default function Dashboard({ auth }) {
         post(route("patient.store"), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
-            onFinish: () => reset(),
         });
     };
 
