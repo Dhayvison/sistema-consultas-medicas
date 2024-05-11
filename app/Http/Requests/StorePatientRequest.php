@@ -23,7 +23,7 @@ class StorePatientRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'age' => 'required|integer|min:0',
+            'age' => 'required|integer|min:1',
         ];
     }
 }
