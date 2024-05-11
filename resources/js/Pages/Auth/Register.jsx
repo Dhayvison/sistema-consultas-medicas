@@ -28,7 +28,7 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title="Cadastrar usuário" />
 
             <form onSubmit={submit}>
                 <div>
