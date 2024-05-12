@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->enum('status', ['scheduled', 'completed', 'cancelled']);
+            $table->enum('status', ['started', 'completed', 'cancelled']);
             $table->dateTime('started_at');
             $table->dateTime('ended_at')->nullable();
             $table->uuid('user_id');

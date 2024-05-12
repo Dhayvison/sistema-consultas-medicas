@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
+use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
+use App\Models\Enums\AppointmentStatus;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
@@ -18,7 +20,7 @@ class AppointmentController extends Controller
             [
                 'patient_id' => $patientId,
                 'user_id' => $request->user()->id,
-                'status' => 'scheduled',
+                'status' => AppointmentStatus::Started->value,
                 'started_at' => date_create(),
             ]
         );
@@ -40,7 +42,7 @@ class AppointmentController extends Controller
     public function edit($id)
     {
         return Inertia::render('Appointment/Edit', [
-            'appointment' => Appointment::find($id)
+            'appointment' =>  new AppointmentResource(Appointment::find($id)),
         ]);
     }
 
