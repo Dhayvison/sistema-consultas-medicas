@@ -3,7 +3,7 @@ import DeleteUserForm from "./Partials/DeleteUserForm";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import { Head } from "@inertiajs/react";
 
-export default function Edit({ auth, mustVerifyEmail, status }) {
+export default function Edit({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}

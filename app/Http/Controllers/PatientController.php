@@ -11,6 +11,6 @@ class PatientController extends Controller
     {
         $patient = Patient::create($request->validated());
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('appointment.store', ['patientId' => $patient->id]));
     }
 }
