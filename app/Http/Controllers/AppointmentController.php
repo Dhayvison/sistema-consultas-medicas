@@ -29,36 +29,33 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Appointment $appointment)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
+        $appointment = Appointment::find($id);
+
         return Inertia::render('Appointment/Edit', [
-            'appointment' =>  new AppointmentResource(Appointment::find($id)),
+            'appointment' =>  new AppointmentResource($appointment),
+            'canEditStatus' => $appointment->canEditStatus(),
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAppointmentRequest $request, Appointment $appointment)
+    public function end($id)
     {
-        //
+        $appointment = Appointment::find($id);
+        $appointment->status = AppointmentStatus::Completed->value;
+
+        $appointment->save();
+        return redirect(route('appointment.edit', ['id' => $appointment->id]));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Appointment $appointment)
+    public function cancel($id)
     {
-        //
+        $appointment = Appointment::find($id);
+        $appointment->status = AppointmentStatus::Cancelled->value;
+
+        $appointment->save();
+        return redirect(route('appointment.edit', ['id' => $appointment->id]));
     }
 }

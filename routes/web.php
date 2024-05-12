@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
     Route::get('/appointment/{patientId}', [AppointmentController::class, 'store'])->name('appointment.store');
     Route::get('/appointment/edit/{id}', [AppointmentController::class, 'edit'])->name('appointment.edit');
+    Route::post('/appointment/end/{id}', [AppointmentController::class, 'end'])->name('appointment.end');
+    Route::post('/appointment/cancel/{id}', [AppointmentController::class, 'cancel'])->name('appointment.cancel');
 });
 
 require __DIR__ . '/auth.php';

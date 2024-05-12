@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Enums\AppointmentStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,5 +29,10 @@ class Appointment extends Model
     public function patient()
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function canEditStatus()
+    {
+        return $this->status === AppointmentStatus::Started->value;
     }
 }
