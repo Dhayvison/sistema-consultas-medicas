@@ -45,6 +45,7 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($id);
         $appointment->status = AppointmentStatus::Completed->value;
+        $appointment->ended_at = date_create();
 
         $appointment->save();
         return redirect(route('appointment.edit', ['id' => $appointment->id]));
