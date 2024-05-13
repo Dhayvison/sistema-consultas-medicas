@@ -29,7 +29,7 @@ export default function Edit({ auth, appointment, canEditStatus }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="p-4 sm:p-8  shadow sm:rounded-lg bg-white dark:bg-gray-800">
-                        <section className="flex justify-between">
+                        <section className="flex items-center justify-between flex-col-reverse gap-2 sm:flex-row">
                             <AppointmentStatusIndicator
                                 statusText={appointment.data.status}
                             />
