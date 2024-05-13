@@ -40,3 +40,47 @@ PHP e Composer: a versão do PHP requerida é no mínimo 8.2. Siga os seguintes 
 Estes passos foram retirados do tutorial [How to install PHP 8.2 on Ubuntu 22.04](https://techvblogs.com/blog/install-php-8-2-ubuntu-22-04).
 
 Já a instalação do composer pode ser feita seguinda a [documentação oficial](https://getcomposer.org/download/).
+
+## Iniciando o projeto
+
+1. Copie, baixe ou clone o repositório em uma pasta dentro do seu ambiente Linux WSL.
+   ```
+   git clone https://github.com/Dhayvison/sistema-consultas-medicas.git
+   ```
+2. Entre na pasta criada
+   ```
+   cd ./sistema-consultas-medicas
+   ```
+3. Copie o arquivo `cp .env.example .env` e preencha os dados de conexão com o banco. Segue exemplo de configuração que pode ser utilizada.
+   ```env
+   DB_CONNECTION=pgsql
+   DB_HOST=pgsql
+   DB_PORT=5432
+   DB_DATABASE=sail
+   DB_USERNAME=root
+   DB_PASSWORD=password
+   ```
+   Além disso é interessante alterar a variável `APP_ENV` para `development`
+4. Instale as dependências do projeto com `composer install`
+5. Suba os containers de desenvolvimento com o comando
+   ```
+   ./vendor/bin/sail up -d
+   ```
+6. Gere a chave de aplicação
+   ```
+   docker exec sistema-consultas-medicas-laravel.test-1 php artisan key:generate
+   ```
+7. Execute as migrations e em seguida o seed do banco
+   ```
+   docker exec sistema-consultas-medicas-laravel.test-1 php artisan migrate
+   ```
+   ```
+   docker exec sistema-consultas-medicas-laravel.test-1 php artisan db:seed
+   ```
+8. Instale os pacotes Javascript e execute o servidor Vite.
+   ```
+   docker exec sistema-consultas-medicas-laravel.test-1 php artisan db:seed
+   ```
+   ```
+   docker exec sistema-consultas-medicas-laravel.test-1 npm run dev
+   ```
