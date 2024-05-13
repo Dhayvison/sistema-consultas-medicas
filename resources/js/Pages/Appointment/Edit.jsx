@@ -6,11 +6,15 @@ import DangerButton from "@/Components/DangerButton";
 import Select from "@/Components/Select";
 import { useState } from "react";
 import InputError from "@/Components/InputError";
+import TextInput from "@/Components/TextInput";
 
 export default function Edit({ auth, appointment, canEditStatus, exams }) {
+    console.log(appointment);
     const { post, processing } = useForm();
     const [selectedExam, setSelectedExam] = useState("");
-    const [showExamError, setShowExamError] = useState(false);
+    const prescriptionForm = useForm({
+        content: "",
+    });
 
     const cancelAppointment = () => {
         post(route("appointment.cancel", { id: appointment.data.id }));
@@ -23,7 +27,6 @@ export default function Edit({ auth, appointment, canEditStatus, exams }) {
     const addExam = (e) => {
         e.preventDefault();
 
-        setShowExamError(false);
         post(
             route("appointment.exam.store", {
                 appointmentId: appointment.data.id,
@@ -34,6 +37,20 @@ export default function Edit({ auth, appointment, canEditStatus, exams }) {
                 onError: () => {
                     setShowExamError(true);
                 },
+            }
+        );
+    };
+
+    const addPrescription = (e) => {
+        e.preventDefault();
+
+        prescriptionForm.post(
+            route("appointment.prescription.store", {
+                appointmentId: appointment.data.id,
+            }),
+            {
+                data: prescriptionForm.data,
+                preserveScroll: true,
             }
         );
     };
@@ -138,7 +155,49 @@ export default function Edit({ auth, appointment, canEditStatus, exams }) {
                             </ul>
                         </div>
                         <div className="p-4 sm:p-8  shadow sm:rounded-lg bg-white dark:bg-gray-800">
-                            Prescrições
+                            <span className="font-semibold mt-8 text-gray-800 dark:text-gray-400">
+                                Prescrições
+                            </span>
+                            {canEditStatus && (
+                                <>
+                                    <form
+                                        onSubmit={addPrescription}
+                                        className="mt-4 flex gap-4"
+                                    >
+                                        <TextInput
+                                            id="content"
+                                            type="text"
+                                            name="content"
+                                            value={
+                                                prescriptionForm.data.content
+                                            }
+                                            onChange={(e) =>
+                                                prescriptionForm.setData(
+                                                    "content",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="flex-1"
+                                            placeholder="Insira o texto da prescrição"
+                                        />
+
+                                        <PrimaryButton>Adicionar</PrimaryButton>
+                                    </form>
+                                    <InputError
+                                        message={
+                                            prescriptionForm.errors.content
+                                        }
+                                        className="mt-2"
+                                    />
+                                </>
+                            )}
+                            <ul className="mt-8 text-gray-800 dark:text-gray-200">
+                                {appointment.data.prescriptions?.map(
+                                    ({ id, content }) => {
+                                        return <li key={id}>{content}</li>;
+                                    }
+                                )}
+                            </ul>
                         </div>
                     </div>
                 </div>

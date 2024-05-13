@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentExamController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/appointment/cancel/{id}', [AppointmentController::class, 'cancel'])->name('appointment.cancel');
 
     Route::post('/appointment/{appointmentId}/exam/{examId}', [AppointmentExamController::class, 'store'])->name('appointment.exam.store');
+    Route::post('/appointment/{appointmentId}/prescription', [PrescriptionController::class, 'store'])->name('appointment.prescription.store');
 });
 
 require __DIR__ . '/auth.php';
