@@ -11,13 +11,13 @@
 
 Este projeto implementa um pequeno sistema de registro de consultas. Nele o usuário (médico) pode cadastrar seus atendimentos associando os dados do paciente, exames solicitados e prescrição feita. Guardando isto em um histórico que mostra também o tempo de atendimento gasto em cada consulta.
 
-## Configuração
+## Preparação do ambiente
 
 Para executar este projeto em máquina local é necessário: 
 
-- Docker com WSL2: no caso da configuração estar sendo feita em uma máquina Windows, por favor instale o através da ([documentação oficial](https://docs.docker.com/desktop/install/windows-install/)). Se você é usuário Linux, só será necessária a [instalação do Docker](https://docs.docker.com/desktop/install/linux-install/).
+Docker com WSL2: caso a configuração esteja sendo feita em uma máquina Windows, por favor instale a ferramenta Docker com WSL2 através da ([documentação oficial](https://docs.docker.com/desktop/install/windows-install/)). Se você é usuário Linux, só será necessária a [instalação do Docker](https://docs.docker.com/desktop/install/linux-install/).
 
-- PHP e Composer: a versão do PHP requerida é no mínimo 8.2. Siga os seguintes passos:
+PHP e Composer: a versão do PHP requerida é no mínimo 8.2. Siga os seguintes passos:
   1. Abra um Terminal Linux ou um WSL;
   2. Execute a atualização de pacotes: `sudo apt update` e `sudo apt upgrade -y`
   3. Adicione o repositório:
@@ -37,3 +37,6 @@ Para executar este projeto em máquina local é necessário:
      ```
      PHP 8.2.19 (cli) (built: May 13 2024 18:20:15) (NTS)
      ```
+Estes passos foram retirados do tutorial [How to install PHP 8.2 on Ubuntu 22.04](https://techvblogs.com/blog/install-php-8-2-ubuntu-22-04).
+
+Já a instalação do composer pode ser feita seguinda a [documentação oficial](https://getcomposer.org/download/).
