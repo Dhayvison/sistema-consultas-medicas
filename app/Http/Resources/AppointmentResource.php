@@ -23,6 +23,7 @@ class AppointmentResource extends JsonResource
             'endedAt' => $this->ended_at,
             'spended' => $spended ? $spended->format('%h h %i min %S s') : null,
             'patient' => $this->patient,
+            'exams' => $this->exams,
         ];
     }
 }

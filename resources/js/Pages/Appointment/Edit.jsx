@@ -3,9 +3,14 @@ import { Head, useForm } from "@inertiajs/react";
 import AppointmentStatusIndicator from "./Components/AppointmentStatusIndicator";
 import PrimaryButton from "@/Components/PrimaryButton";
 import DangerButton from "@/Components/DangerButton";
+import Select from "@/Components/Select";
+import { useState } from "react";
+import InputError from "@/Components/InputError";
 
-export default function Edit({ auth, appointment, canEditStatus }) {
+export default function Edit({ auth, appointment, canEditStatus, exams }) {
     const { post, processing } = useForm();
+    const [selectedExam, setSelectedExam] = useState("");
+    const [showExamError, setShowExamError] = useState(false);
 
     const cancelAppointment = () => {
         post(route("appointment.cancel", { id: appointment.data.id }));
@@ -13,6 +18,24 @@ export default function Edit({ auth, appointment, canEditStatus }) {
 
     const endAppointment = () => {
         post(route("appointment.end", { id: appointment.data.id }));
+    };
+
+    const addExam = (e) => {
+        e.preventDefault();
+
+        setShowExamError(false);
+        post(
+            route("appointment.exam.store", {
+                appointmentId: appointment.data.id,
+                examId: selectedExam,
+            }),
+            {
+                preserveScroll: true,
+                onError: () => {
+                    setShowExamError(true);
+                },
+            }
+        );
     };
 
     return (
@@ -74,6 +97,49 @@ export default function Edit({ auth, appointment, canEditStatus }) {
                                 </PrimaryButton>
                             </section>
                         )}
+                    </div>
+                    <div className="mt-6 max-w-7xl mx-auto  grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-4 sm:p-8  shadow sm:rounded-lg bg-white dark:bg-gray-800">
+                            <span className="font-semibold mt-8 text-gray-800 dark:text-gray-400">
+                                Exames
+                            </span>
+                            {canEditStatus && (
+                                <form
+                                    onSubmit={addExam}
+                                    className="mt-4 flex gap-4"
+                                >
+                                    <Select
+                                        value={selectedExam}
+                                        onChange={(e) => {
+                                            setSelectedExam(e.target.value);
+                                        }}
+                                        className="flex-1"
+                                        required
+                                    >
+                                        <Select.Option
+                                            value=""
+                                            label="Selecione um exame"
+                                        />
+                                        {exams?.map(({ id, name }) => (
+                                            <Select.Option
+                                                key={id}
+                                                value={id}
+                                                label={name}
+                                            />
+                                        ))}
+                                    </Select>
+                                    <PrimaryButton>Adicionar</PrimaryButton>
+                                </form>
+                            )}
+                            <ul className="mt-8 text-gray-800 dark:text-gray-200">
+                                {appointment.data.exams?.map(({ id, name }) => {
+                                    return <li key={id}>{name}</li>;
+                                })}
+                            </ul>
+                        </div>
+                        <div className="p-4 sm:p-8  shadow sm:rounded-lg bg-white dark:bg-gray-800">
+                            Prescrições
+                        </div>
                     </div>
                 </div>
             </div>

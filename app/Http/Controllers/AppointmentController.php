@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Models\Enums\AppointmentStatus;
+use App\Models\Exam;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
@@ -37,6 +38,7 @@ class AppointmentController extends Controller
         return Inertia::render('Appointment/Edit', [
             'appointment' =>  new AppointmentResource($appointment),
             'canEditStatus' => $appointment->canEditStatus(),
+            'exams' => Exam::orderBy('name')->get(),
         ]);
     }
 

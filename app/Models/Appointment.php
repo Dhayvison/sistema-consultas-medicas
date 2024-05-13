@@ -32,6 +32,11 @@ class Appointment extends Model
         return $this->belongsTo(Patient::class);
     }
 
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'appointment_exams');
+    }
+
     public function canEditStatus()
     {
         return $this->status === AppointmentStatus::Started->value;
