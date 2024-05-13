@@ -39,7 +39,7 @@ PHP e Composer: a versão do PHP requerida é no mínimo 8.2. Siga os seguintes 
      ```
 Estes passos foram retirados do tutorial [How to install PHP 8.2 on Ubuntu 22.04](https://techvblogs.com/blog/install-php-8-2-ubuntu-22-04).
 
-Já a instalação do composer pode ser feita seguinda a [documentação oficial](https://getcomposer.org/download/).
+Já a instalação do composer pode ser feita seguindo a [documentação oficial](https://getcomposer.org/download/).
 
 ## Iniciando o projeto
 
