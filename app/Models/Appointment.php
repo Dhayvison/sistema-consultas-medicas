@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\AppointmentStatus;
+use DateTime;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,5 +35,18 @@ class Appointment extends Model
     public function canEditStatus()
     {
         return $this->status === AppointmentStatus::Started->value;
+    }
+
+    public function getSpendedTime()
+    {
+        $startedDate = $this->started_at;
+
+        if ($this->ended_at) {
+            return $startedDate->diff($this->ended_at);
+        } else if ($this->status !== AppointmentStatus::Cancelled->value) {
+            return $startedDate->diff(new DateTime());
+        }
+
+        return null;
     }
 }

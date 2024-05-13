@@ -34,6 +34,13 @@ export default function Edit({ auth, appointment, canEditStatus }) {
                                 statusText={appointment.data.status}
                             />
 
+                            {appointment.data.spended && (
+                                <div className="text-xs font-medium text-black dark:text-gray-200">
+                                    Tempo de atendimento:{" "}
+                                    {appointment.data.spended}
+                                </div>
+                            )}
+
                             <div className="text-xs font-medium text-black dark:text-gray-200">
                                 {new Date(
                                     appointment.data.startedAt

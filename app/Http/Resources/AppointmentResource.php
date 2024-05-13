@@ -14,11 +14,14 @@ class AppointmentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $spended = $this->getSpendedTime();
+
         return  [
             'id' => $this->id,
             'status' => $this->status,
             'startedAt' => $this->started_at,
             'endedAt' => $this->ended_at,
+            'spended' => $spended ? $spended->format('%h h %i min %S s') : null,
             'patient' => $this->patient,
         ];
     }
