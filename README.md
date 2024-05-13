@@ -84,3 +84,12 @@ Já a instalação do composer pode ser feita seguindo a [documentação oficial
    ```
    docker exec sistema-consultas-medicas-laravel.test-1 npm run dev
    ```
+Feito! Sua aplicação foi configurada e pode ser acessada no endereço local (http://localhost/).
+
+Caso ocorra um erro do tipo `UnexpectedValueException` com a messagem `The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied` na primeira execução do seu código, execute os seguintes comandos.
+```
+sudo chmod o+w ./storage/ -R
+```
+```
+sudo chown www-data:www-data -R ./storage
+```
