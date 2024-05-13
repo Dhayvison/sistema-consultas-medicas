@@ -7,8 +7,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import SecondaryButton from "@/Components/SecondaryButton";
+import AppointmentStatusIndicator from "./Appointment/Components/AppointmentStatusIndicator";
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, appointments }) {
+    console.log(appointments);
     const [registeringPatient, setRegisteringPatient] = useState(false);
     const { data, setData, post, processing, reset, errors } = useForm({
         name: "",
@@ -123,10 +125,53 @@ export default function Dashboard({ auth }) {
                     </Modal>
                 </section>
 
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div className="p-6 text-gray-900 dark:text-gray-100">
-                        Você está logado!
-                    </div>
+                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Histórico de consultas
+                </h2>
+                <div className="mt-4 pb-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <table className="table-auto w-full border-collapse  text-gray-800 dark:text-gray-200">
+                        <thead>
+                            <tr className="bg-white dark:bg-gray-800">
+                                <th className="px-4 py-2">Paciente</th>
+                                <th className="px-4 py-2">Situação</th>
+                                <th className="px-4 py-2">Data</th>
+                                <th className="px-4 py-2">Exames</th>
+                                <th className="px-4 py-2">
+                                    Tempo de atendimento
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {appointments.data.map((appointment) => {
+                                const exams = appointment.exams
+                                    .map(({ name }) => name)
+                                    .join(", ");
+                                return (
+                                    <tr key={appointment.id}>
+                                        <td className="border-t px-4 py-2">
+                                            {appointment.patient.name}
+                                        </td>
+                                        <td className="border-t px-4 py-2">
+                                            <AppointmentStatusIndicator
+                                                statusText={appointment.status}
+                                            />
+                                        </td>
+                                        <td className="border-t px-4 py-2">
+                                            {new Date(
+                                                appointment.startedAt
+                                            ).toLocaleString()}
+                                        </td>
+                                        <td className="border-t px-4 py-2">
+                                            {exams}
+                                        </td>
+                                        <td className="border-t px-4 py-2">
+                                            {appointment.spended}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </AuthenticatedLayout>

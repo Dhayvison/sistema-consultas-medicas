@@ -31,6 +31,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -43,11 +48,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function getIncrementing(): bool {
+    public function getIncrementing(): bool
+    {
         return false;
     }
 
-    public function getKeyType(): string {
+    public function getKeyType(): string
+    {
         return 'string';
     }
 }
