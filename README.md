@@ -93,3 +93,11 @@ sudo chmod o+w ./storage/ -R
 ```
 sudo chown www-data:www-data -R ./storage
 ```
+
+O login no sistema pode ser feito com as credenciais geradas no seed do banco. Mas você pode definir suas próprias credenciais na página de registro.
+```php
+[
+  'username' => 'johndoe',
+  'password' => 'password',
+]
+```
