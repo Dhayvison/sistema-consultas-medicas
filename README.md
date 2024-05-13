@@ -79,7 +79,7 @@ Já a instalação do composer pode ser feita seguindo a [documentação oficial
    ```
 8. Instale os pacotes Javascript e execute o servidor Vite.
    ```
-   docker exec sistema-consultas-medicas-laravel.test-1 php artisan db:seed
+   docker exec sistema-consultas-medicas-laravel.test-1 npm install
    ```
    ```
    docker exec sistema-consultas-medicas-laravel.test-1 npm run dev
